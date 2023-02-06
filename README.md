@@ -1,0 +1,2 @@
+# PeaksPyAuto
+Participant selection script
