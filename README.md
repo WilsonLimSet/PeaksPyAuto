@@ -1,5 +1,5 @@
 # PeaksPyAuto
-Participant selection script
+Saving 1 hour of work a week for https://www.peaksandprofessors.org/
 
 Usage: 
 1. Put all excel files into same path as main.py
