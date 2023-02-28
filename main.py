@@ -18,6 +18,23 @@ def select_people(file_list, output_file):
         # Create a DataFrame to store all the selected people
         df_all_selected = pd.DataFrame()
 
+        # Add a sheet for all selected people
+        df_all_selected.to_excel(writer, index=False, header=True, startrow=0, sheet_name='All Selected')
+
+        # Set column widths of output file for the 'All Selected' sheet
+        worksheet = writer.sheets['All Selected']
+        worksheet.column_dimensions['A'].width = 20
+        worksheet.column_dimensions['B'].width = 20
+        worksheet.column_dimensions['C'].width = 15
+        worksheet.column_dimensions['D'].width = 15
+        worksheet.column_dimensions['E'].width = 25
+        worksheet.column_dimensions['F'].width = 15
+        worksheet.column_dimensions['G'].width = 20
+        worksheet.column_dimensions['H'].width = 20
+        worksheet.column_dimensions['I'].width = 20
+        worksheet.column_dimensions['J'].width = 20
+        worksheet.column_dimensions['K'].width = 25
+
         for file in file_list:
             # Read input file
             try:
@@ -69,24 +86,7 @@ def select_people(file_list, output_file):
             worksheet.column_dimensions['J'].width = 20
             worksheet.column_dimensions['K'].width = 25
 
-        # Add a sheet for all selected people
-        df_all_selected.to_excel(writer, index=False, header=True, startrow=0, sheet_name='All Selected')
-
-        # Set column widths of output file for the 'All Selected' sheet
-        worksheet = writer.sheets['All Selected']
-        worksheet.column_dimensions['A'].width = 20
-        worksheet.column_dimensions['B'].width = 20
-        worksheet.column_dimensions['C'].width = 15
-        worksheet.column_dimensions['D'].width = 15
-        worksheet.column_dimensions['E'].width = 25
-        worksheet.column_dimensions['F'].width = 15
-        worksheet.column_dimensions['G'].width = 20
-        worksheet.column_dimensions['H'].width = 20
-        worksheet.column_dimensions['I'].width = 20
-        worksheet.column_dimensions['J'].width = 20
-        worksheet.column_dimensions['K'].width = 25
-
-        # Set column widths of output file for the 'Waitlist' sheets
+            # Set column widths of output file for the 'Waitlist' sheets
         for sheet_name in writer.sheets:
             if sheet_name.startswith("waitlist_"):
                 worksheet = writer.sheets[sheet_name]
@@ -102,16 +102,15 @@ def select_people(file_list, output_file):
                 worksheet.column_dimensions['J'].width = 20
                 worksheet.column_dimensions['K'].width = 25
 
-        # Save the Excel file
+            # Save the Excel file
         writer.save()
 
+    # Get list of input files
+    path = os.getcwd()
+    file_list = [f for f in os.listdir(path) if f.endswith('.xlsx')]
 
-# Get list of input files
-path = os.getcwd()
-file_list = [f for f in os.listdir(path) if f.endswith('.xlsx')]
+    # Set name of output file
+    output_file = 'selected_people.xlsx'
 
-# Set name of output file
-output_file = 'selected_people.xlsx'
-
-# Run script
-select_people(file_list, output_file)
+    # Run script
+    select_people(file_list, output_file)
